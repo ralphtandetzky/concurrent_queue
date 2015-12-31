@@ -25,7 +25,7 @@ public:
 		while (m_queue.empty()) {
 			m_cond.wait(lock);
 		}
-		item = m_queue.front();
+		item = std::move(m_queue.front());
 		m_queue.pop();
 	}
 	bool pop(T& item)
@@ -35,7 +35,7 @@ public:
 		if (m_queue.empty()) {
 			return false;
 		}
-		item = m_queue.front();
+		item = std::move(m_queue.front());
 		m_queue.pop();
 		return true;
 	}
