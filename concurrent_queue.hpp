@@ -1,5 +1,10 @@
 #ifndef CONCURRENT_QUEUE_HPP
 #define CONCURRENT_QUEUE_HPP
+
+#include <condition_variable>
+#include <mutex>
+#include <queue>
+
 template <typename T>
 class concurrent_queue
 {
