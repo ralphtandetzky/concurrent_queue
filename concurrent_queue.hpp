@@ -8,12 +8,12 @@ private:
 	std::mutex m_mutex;
 	std::condition_variable m_cond;
 public:
-	template <typename Arg>
-	void push(Arg&& item) /* support perfect forwarding */
+	template <typename ...Args>
+	void push(Args&&... args) /* support perfect forwarding */
 	{
 		{ /* scope-based lock */
 			std::unique_lock<std::mutex> lock(m_mutex);
-			m_queue.push(std::forward<Arg>(item));
+			m_queue.emplace(std::forward<Args>(args)...);
 		}
 		m_cond.notify_one();
 	}
